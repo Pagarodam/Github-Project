@@ -78,9 +78,9 @@ Add this to the file.
 
 package.json
 "scripts": {
-    "start": "parcel ./src/index.html --open",
-    "dev": "parcel src/index.html",
-    "test": "echo \"Error: no test specified\" && exit 1"
+"start": "parcel ./src/index.html --open",
+"dev": "parcel src/index.html",
+"test": "echo \"Error: no test specified\" && exit 1"
 },
 
 11- npm install -D @babel/core @babel/preset-react
@@ -116,14 +116,12 @@ index.html
   </body>
 </html>
 
-
 index.js
 
 import ReactDOM from "react-dom";
 import App from "./App";
 
 ReactDOM.render(<App />, document.getElementById("root"));
-
 
 App.js
 
@@ -137,7 +135,6 @@ export default App;
 
 15 delete .babelrc
 
-
 START INSTRUCCTIONS
 
 1- Write in terminal npm i for install all dependencies and then npm run dev for init localhost server.
@@ -146,4 +143,4 @@ START INSTRUCCTIONS
 
 3- If only introduce a user you will receive a sample with the first 30 repositories. You can click on one of them to see the issues and pulls.
 
-4- If you click on an issue or pull, you'll see the title, description, and all comments with the author's name and the date the comment was made.
+4- If you click on an issue or pull, you'll see the title, description, and all comments with the author's name and the date the comment was made (only the 30 first issues or pulls will be shown).
