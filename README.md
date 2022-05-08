@@ -1,5 +1,7 @@
 # Github-Project
 
+INSTALLATION
+
 CREATING react app whitout create-react app.
 
 1- npm init -y
@@ -134,3 +136,14 @@ export default App;
 14 npm run dev
 
 15 delete .babelrc
+
+
+START INSTRUCCTIONS
+
+1- Write in terminal npm i for install all dependencies and then npm run dev for init localhost server.
+
+2- Search for a user or a user and repository.
+
+3- If only introduce a user you will receive a sample with the first 30 repositories. You can click on one of them to see the issues and pulls.
+
+4- If you click on an issue or pull, you'll see the title, description, and all comments with the author's name and the date the comment was made.
