@@ -1,5 +1,15 @@
+import Header from "./components/Layout/Header";
+import Footer from "./components/UI/Footer";
+import Main from "./components/UI/Main";
+
 function App() {
-  return <h1>Succes??</h1>;
+  return (
+    <>
+      <Header />
+      <Main />
+      <Footer />
+    </>
+  );
 }
 
 export default App;
