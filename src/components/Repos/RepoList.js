@@ -1,15 +1,27 @@
+import DataInfo from "../DataInfo/DataInfo";
 import CardMini from "../UI/CardMini";
+import Pagination from "../UI/Pagination";
 
 const RepoList = (props) => {
   return (
     <>
-      <div className="text-center">
-        <h1 className="text-center p-5 text-3xl font-mono">{props.data.repos_url}</h1>
-        <p>User: {props.data.login}</p>
-        <p>Public repos: {props.data.public_repos}</p>
-      </div>
-      <div className="grid grid-cols-4 gap-2 " >
-        <CardMini repos={props.repos} onClick={props.onClick}/>
+      <div>
+        <DataInfo
+          data={props.data}
+          currentPage={props.currentPage}
+          lastPage={props.lastPage}
+        />
+        <div className="grid grid-cols-5 gap-2 mb-10">
+          {props.repos.map((repo) => (
+            <CardMini key={repo.id} data={repo} onClick={props.onClick} />
+          ))}
+        </div>
+        {props.repos.length && (
+          <Pagination
+            onPreviousPageHandler={props.onPreviousPageHandler}
+            onNextPageHandler={props.onNextPageHandler}
+          />
+        )}
       </div>
     </>
   );

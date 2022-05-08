@@ -1,19 +1,49 @@
 import { useState } from "react";
-import IssueDetail from "../Issues/IssueDetail";
+import IssueList from "../Issues/IssueList";
 import RepoList from "../Repos/RepoList";
 import Form from "./Form";
 import Modal from "./Modal";
+
+const FIRST_PAGE = 1;
+const ELEMENTS_PER_PAGE = 30;
 
 const Main = () => {
   const [userData, setUserData] = useState("");
   const [repos, setRepos] = useState([]);
   const [issues, setIssues] = useState([]);
   const [comments, setComments] = useState(null);
-  const [modalData, setModalData] = useState(null);
 
+  const [modalData, setModalData] = useState(null);
   const [userInput, setUserInput] = useState("");
   const [repositoryInput, setRepositoryInput] = useState("");
   const [error, setError] = useState(null);
+  const [repoUrl, setRepoUrl] = useState("");
+  const [issueUrl, setIssueUrl] = useState("");
+
+  const [page, setPage] = useState(FIRST_PAGE);
+  const [lastPage, setLastPage] = useState(FIRST_PAGE);
+
+  const nextPageHandler = () => {
+    const pageToNavigate = page < lastPage ? page + 1 : page;
+    if (repos.length) {
+      getRepos(`${repoUrl}?page=${pageToNavigate}`);
+    }
+    if (issues.length) {
+      getIssues(`${issueUrl}?page=${pageToNavigate}`);
+    }
+    setPage(pageToNavigate);
+  };
+
+  const previousPageHandler = () => {
+    const pageToNavigate = page > 1 ? page - 1 : page;
+    if (repos.length) {
+      getRepos(`${repoUrl}?page=${pageToNavigate}`);
+    }
+    if (issues.length) {
+      getIssues(`${issueUrl}?page=${pageToNavigate}`);
+    }
+    setPage(pageToNavigate);
+  };
 
   const userNameHandlerSearch = (event) => {
     setUserInput(event.target.value);
@@ -31,15 +61,20 @@ const Main = () => {
           setError(res.message);
         } else {
           setError(null);
-          getIssues(res.issues_url);
+          const issuesUrl = res.issues_url.split("{")[0];
+          getIssues(issuesUrl);
+          setIssueUrl(issuesUrl);
+          console.log("repoinfo", res);
+          setPage(FIRST_PAGE);
           setRepos([]);
           setUserInput("");
+          setLastPage(Math.ceil(res.open_issues_count / ELEMENTS_PER_PAGE));
           setRepositoryInput("");
         }
       });
   };
 
-  const getUserRepos = (user) => {
+  const getUserRepos = () => {
     fetch(`https://api.github.com/users/${userInput}`)
       .then((res) => res.json())
       .then((res) => {
@@ -48,6 +83,10 @@ const Main = () => {
         } else {
           setUserData(res);
           getRepos(res.repos_url);
+          setRepoUrl(res.repos_url);
+          setPage(FIRST_PAGE);
+          setLastPage(Math.ceil(res.public_repos / ELEMENTS_PER_PAGE));
+          setError(null);
           setIssues([]);
           setError(null);
         }
@@ -56,6 +95,7 @@ const Main = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setPage(FIRST_PAGE);
     if (!repositoryInput && userInput) {
       getUserRepos(userInput);
     } else if (repositoryInput && userInput) {
@@ -77,7 +117,6 @@ const Main = () => {
   };
 
   const getIssues = (urlIssues) => {
-    urlIssues = urlIssues.split("{")[0];
     fetch(urlIssues)
       .then((res) => res.json())
       .then((res) => {
@@ -150,10 +189,7 @@ const Main = () => {
                     <b>Creation date: </b>
                     {new Date(comment.created_at).toLocaleDateString()}
                   </p>
-                  <li className="p-4">
-                    {console.log(comment)}
-                    {comment.body}
-                  </li>
+                  <li className="p-4">{comment.body}</li>
                 </div>
               ))}
             </ul>
@@ -178,10 +214,28 @@ const Main = () => {
       ) : (
         <>
           {userData && (
-            <RepoList data={userData} repos={repos} onClick={clickRepository} />
+            <RepoList
+              data={userData}
+              currentPage={page}
+              lastPage={lastPage}
+              onNextPageHandler={nextPageHandler}
+              onPreviousPageHandler={previousPageHandler}
+              repos={repos}
+              onClick={clickRepository}
+            />
           )}
           <div className="grid-cols-2">
-            {issues && <IssueDetail data={issues} onClick={clickIssue} />}
+            {issues.length && (
+              <IssueList
+                data={userData}
+                currentPage={page}
+                lastPage={lastPage}
+                issues={issues}
+                onClick={clickIssue}
+                onNextPageHandler={nextPageHandler}
+                onPreviousPageHandler={previousPageHandler}
+              />
+            )}
           </div>
         </>
       )}
