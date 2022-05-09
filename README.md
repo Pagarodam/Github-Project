@@ -143,4 +143,4 @@ START INSTRUCCTIONS
 
 3- If only introduce a user you will receive a sample with the first 30 repositories. You can click on one of them to see the issues and pulls.
 
-4- If you click on an issue or pull, you'll see the title, description, and all comments with the author's name and the date the comment was made (only the 30 first issues or pulls will be shown).
+4- If you click on an issue or pull, you'll see the title, description, and all comments with the author's name and the date the comment was made (only 30 issues or pulls will be shown at once).
