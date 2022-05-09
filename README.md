@@ -1,10 +1,10 @@
 # Github-Project
 
-INSTALLATION
+## INSTALLATION
 
 CREATING react app whitout create-react app.
 
-1- npm init -y
+1- `npm init -y`
 For init a new project and create the package.json file.
 
 2- Create a new folder project in main /src.
@@ -39,7 +39,7 @@ Add this to the file.
 
 8- create .eslintrc.json
 
-{
+```{
 //the order of the "extends" array matters.
 "extends": [
 "eslint:recomended",
@@ -71,6 +71,7 @@ Add this to the file.
 }
 }
 }
+```
 
 9- npm install react react-dom
 
@@ -142,6 +143,8 @@ export default App;
 14 npm run dev
 
 15 delete .babelrc
+
+---
 
 START INSTRUCCTIONS
 
