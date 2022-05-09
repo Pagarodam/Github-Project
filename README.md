@@ -100,6 +100,7 @@ package.json
 
 13- create in src folder the next files App.js index.html index.js
 
+
 index.html
 
 <!DOCTYPE html>
@@ -109,6 +110,7 @@ index.html
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link href="./index.css" rel="stylesheet" />
   </head>
   <body>
     <div id="root"></div>
@@ -116,12 +118,17 @@ index.html
   </body>
 </html>
 
+
 index.js
 
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import App from "./App";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+const container = document.getElementById("root");
+const root = createRoot(container);
+
+root.render(<App />);
+
 
 App.js
 
@@ -130,6 +137,7 @@ return <h1>Succes??</h1>;
 }
 
 export default App;
+
 
 14 npm run dev
 
