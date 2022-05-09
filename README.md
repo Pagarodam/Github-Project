@@ -152,7 +152,7 @@ export default App;
 ## START INSTRUCCTIONS
 1- Clone repository into your 
 
-1- Write in terminal `npm i` for install all dependencies and then npm run dev for init localhost server.
+1- Write in terminal `npm i` for install all dependencies and then `npm run dev` for init localhost server.
 
 2- Search for a user or a user and repository.
 
